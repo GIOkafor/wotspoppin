@@ -1,0 +1,19 @@
+.footer{
+	position: fixed;
+    bottom: 0px;
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    background-color: lightsteelblue;
+}
+.footer .glyphicon{
+	padding: 10px;
+	cursor: pointer;
+	font-size: x-large;
+}
+.footer .user-image{
+	width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 5px;
+}

@@ -1,0 +1,43 @@
+.venue-component{
+	padding: 10px;
+	text-align: center;
+
+	.venue-name{
+		margin-top: 5px;
+	}
+
+	.venue-image{
+		width: 100%;
+	}
+
+	.table{
+		text-align: left;
+	}
+
+	.show-details{
+	    position: fixed;
+	    background: rgba(0,0,0,0.6);;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    height: 100%;
+	    width: 100%;
+	    opacity: 1;
+	    z-index: 1;
+
+	    .modal-contents{
+	    	background-color: #fff;
+	    	padding: 10px;
+
+	    	.close{
+	    		position: relative;
+    			right: 10px;
+	    	}
+
+		    img{
+		    	width: 100%;
+		    }
+		}
+	}
+}

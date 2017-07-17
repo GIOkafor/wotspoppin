@@ -1,0 +1,49 @@
+<div class="top-nav">
+	<button md-raised-button (click)="goBack();">Go Back</button>
+</div>
+
+<div class="venue-component">
+	<h1 class="venue-name">{{ venue.name }}</h1>
+
+	<div class="row">
+		<img class="col-sm-12 col-md-8 col-lg-8 venue-image" [src]="venue.imageUrl">
+	</div>
+
+	<p class="address">{{ venue.address }}</p>
+
+	<p class="hours">{{ venue.hours }}</p>
+
+	<div class="events">
+		<h4>Upcoming Events</h4>
+
+		<table class="table table-striped">
+			<tr>
+				<th>Event Name</th>
+				<th>Date</th>
+			</tr>
+
+			<!-- Repeat this row below --> 
+			<tr *ngFor="let event of events | async" (click)="getEventDetails(event);">
+				<td>{{event.name}}</td>
+				<td>{{event.date}}</td>
+			</tr>
+		</table>
+
+		<div class="show-details" *ngIf="showDetails">
+			<div class="modal-contents">
+				<button type="button" class="close" (click)="hideDetails()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+				<img class="promoImage" [src]="spotlightEvent.promoImage">
+				
+				<h4>{{spotlightEvent.name}}</h4>
+
+				<p class="event-description">{{spotlightEvent.description}}</p>
+
+				<div class="buttons">
+					<button class="btn btn-primary" (click)="attendEvent();">Attend</button>
+					<button class="btn btn-default">Maybe</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
