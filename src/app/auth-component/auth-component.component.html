@@ -1,8 +1,8 @@
+<h2>Authenticate</h2>
+
 <div class="authComponent">
 	<button md-raised-button class="googleAuth" (click)="googleLogin();" *ngIf="!(user|async)">Sign In with Google</button>
 	<button md-raised-button class="fbAuth" (click)="fbLogin();" *ngIf="!(user|async)">Sign In with Facebook</button>
 
 	<button md-raised-button (click)="logOut();" *ngIf="(user|async)">Logout</button>
 </div>
-
-<div> {{ (user | async)?.uid }} </div>

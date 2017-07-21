@@ -31,7 +31,7 @@ export class CreateVenueComponent implements OnInit {
 
   onSubmit(form: any){
   	//debuging code
-  	console.log('Form submitted with value: '+form.venueName);
+  	console.log('Form submitted with value: '+form.name);
   	console.log('Form submitted with value: '+form.address);
   	console.log('Form submitted with value: '+form.hours);
   	console.log('Form submitted with value: '+form.imageURL);

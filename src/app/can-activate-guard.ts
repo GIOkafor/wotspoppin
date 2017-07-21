@@ -39,7 +39,7 @@ export class CanActivateGuard implements CanActivate, OnInit{
 			return true;
 		}else{
 			console.log("User is not logged in, access denied. Redirecting...");
-			this.snackbar.open('You are not logged in, redirecting to login page', '', {duration: 3000,});
+			this.snackbar.open('You are not logged in, redirecting to login page', '', {duration: 2500,});
 			//wait 3 seconds for snackbar to show 
 			Observable.timer(3000).subscribe(_=>{
 				this.router.navigate(['/authenticate']);

@@ -24,9 +24,10 @@ export class CreateEventComponent implements OnInit {
   user: firebase.User;//reference to current user
 
   constructor(
-  	router: Router,
-    fb: FormBuilder,
-  	db: AngularFireDatabase) { 
+    private router: Router,
+    private fb: FormBuilder,
+  	private db: AngularFireDatabase,
+    private snackbar: MdSnackBar) { 
   	
   		//form initialization
 	  	this.eventForm = fb.group({
@@ -37,7 +38,7 @@ export class CreateEventComponent implements OnInit {
 	  	});
 
 	  	//db stuff
-	  	this.events = db.list('/Venues/events');
+	  	this.events = db.list('/events');
 
       //curent user 
       this.user = firebase.auth().currentUser;
@@ -55,9 +56,10 @@ export class CreateEventComponent implements OnInit {
   	promise
   		.then(_ => {
   			console.log("successfully added event: " + form.name);
+        this.snackbar.open("successfully added event!", "", {duration: 2000});
   			this.eventForm.reset();
   			//TODO: add redirect to venue events here
-        //this.router.navigate(['/'])
+        this.router.navigate(['/upcoming-events']);
   		})
   		.catch(err => console.log(err, "You do not have access!"));
   }

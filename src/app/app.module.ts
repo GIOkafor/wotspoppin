@@ -29,6 +29,7 @@ import { AuthComponent } from './auth-component/auth-component.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CreateVenueComponent } from './create-venue/create-venue.component';
 import { AddDialogComponent } from './search/search.component';
+import { MyVenuesComponent } from './my-venues/my-venues.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { AddDialogComponent } from './search/search.component';
     AuthComponent,
     UserProfileComponent,
     CreateVenueComponent,
-    AddDialogComponent
+    AddDialogComponent,
+    MyVenuesComponent
   ],
   imports: [
     BrowserModule,
@@ -100,6 +102,13 @@ import { AddDialogComponent } from './search/search.component';
         {
           path: 'create-event',
           component: CreateEventComponent,
+          canActivate: [
+            CanActivateGuard
+          ]
+        },
+        {
+          path: 'my-venues',
+          component: MyVenuesComponent,
           canActivate: [
             CanActivateGuard
           ]
