@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
+import { MdSnackBar } from '@angular/material';
 
 import { Event } from '../classes/event';
 import { User } from '../classes/user';
@@ -17,9 +21,11 @@ export class CreateEventComponent implements OnInit {
   //TODO: get venue's existing events
   //for now it's just going to reference all events 'Venues/events'
   events: FirebaseListObservable<any>;
+  user: firebase.User;//reference to current user
 
   constructor(
-  	fb: FormBuilder,
+  	router: Router,
+    fb: FormBuilder,
   	db: AngularFireDatabase) { 
   	
   		//form initialization
@@ -32,6 +38,9 @@ export class CreateEventComponent implements OnInit {
 
 	  	//db stuff
 	  	this.events = db.list('/Venues/events');
+
+      //curent user 
+      this.user = firebase.auth().currentUser;
   }
 
   ngOnInit() {
@@ -41,12 +50,14 @@ export class CreateEventComponent implements OnInit {
   	//push form value to db
   	//TODO:: Make it so that venues create events only for themselves by including a 'createdBy' key
   	//inside the events directory (signedInUser)
-  	const promise = this.events.push(form);
+  	form.createdBy = this.user.uid;//added createdBy field to form b4 pushing to db
+    const promise = this.events.push(form);
   	promise
   		.then(_ => {
   			console.log("successfully added event: " + form.name);
   			this.eventForm.reset();
   			//TODO: add redirect to venue events here
+        //this.router.navigate(['/'])
   		})
   		.catch(err => console.log(err, "You do not have access!"));
   }

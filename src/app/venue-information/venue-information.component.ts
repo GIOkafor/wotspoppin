@@ -1,11 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { MdDialog, MdSnackBar, MdIcon } from '@angular/material';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { VenuesApiService } from '../venues-service/venues-api.service';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
+import * as firebase from 'firebase/app';
+import {MD_DIALOG_DATA} from '@angular/material';//for accessing data passed to dialog from component
 
 @Component({
   selector: 'app-venue-information',
@@ -72,7 +75,7 @@ export class VenueInformationComponent implements OnInit {
   attendEvent(){
     //prompt them first like are you sure? Your account is going to be charged
     //process payment then redirect to their upcoming events view 
-    this.dialog.open(UserPrompt);
+    this.dialog.open(UserPrompt, {data: this.spotlightEvent}); //pass event details to dialog
     this.hideDetails();
   }
 
@@ -103,18 +106,38 @@ export class VenueInformationComponent implements OnInit {
   `
 })
 export class UserPrompt{
+  user: firebase.User;
+
   constructor(
+    @Inject(MD_DIALOG_DATA) public event: any,
+    private db: AngularFireDatabase,
+    private afAuth: AngularFireAuth,
     public snackBar: MdSnackBar,
     public router: Router
-    ){}
+    ){
+        this.user = firebase.auth().currentUser;
+  }
 
   confirm(){
     //charge user card 
     //add user to guest list
     //add to users list of upcoming events
     //then show this message
-    console.log("Your spot has been reserved");
-    this.snackBar.open('Your spot has been reserved', '', {duration: 2000,});
-    this.router.navigate(['upcoming-events']);
+    
+    //check if user signed in
+    if(this.user){
+      console.log("User is authenticated, adding event: ", this.event.name);
+      const promise = this.db.list('/events/' + this.user.uid).push(this.event);//add to user list of upcoming events
+      promise
+        .then(_=> {
+          console.log("Your spot has been reserved");
+          this.snackBar.open('Your spot has been reserved', '', {duration: 2000,});
+          this.router.navigate(['upcoming-events']);
+        })
+        .catch(err => {console.log("error : " + err)});
+    }else{
+      console.log("User not signed in, redirecting to sign in page");
+      this.router.navigate(['authenticate']);
+    }
   }
 }

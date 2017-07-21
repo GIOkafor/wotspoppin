@@ -9,6 +9,6 @@
 			<app-venue-details [venue]="venue" (click)="getVenue(venue)"></app-venue-details>
 		</div>
 
-		<a md-fab routerLink="/create-venue"><md-icon>add</md-icon></a>
+		<a md-fab (click)="openDialog()"><md-icon>add</md-icon></a>
 	</div>
 </div>	

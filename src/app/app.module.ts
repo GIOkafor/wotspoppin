@@ -17,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
 import { VenueDetailsComponent } from './venue-details/venue-details.component';
 
 import { VenuesApiService } from './venues-service/venues-api.service';
+import { CanActivateGuard } from './can-activate-guard';
 import { VenueComponent } from './venue/venue.component';
 import { VenueInformationComponent } from './venue-information/venue-information.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
@@ -27,6 +28,7 @@ import { UserPrompt } from './venue-information/venue-information.component';
 import { AuthComponent } from './auth-component/auth-component.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CreateVenueComponent } from './create-venue/create-venue.component';
+import { AddDialogComponent } from './search/search.component';
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import { CreateVenueComponent } from './create-venue/create-venue.component';
     UserPrompt,
     AuthComponent,
     UserProfileComponent,
-    CreateVenueComponent
+    CreateVenueComponent,
+    AddDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,10 @@ import { CreateVenueComponent } from './create-venue/create-venue.component';
         },
         {
           path: 'profile',
-          component: UserProfileComponent
+          component: UserProfileComponent,
+          canActivate: [
+            CanActivateGuard
+          ]
         },
         {
           path: 'venues',
@@ -86,22 +92,35 @@ import { CreateVenueComponent } from './create-venue/create-venue.component';
         },
         {
           path: 'create-venue',
-          component: CreateVenueComponent
+          component: CreateVenueComponent,
+          canActivate: [
+            CanActivateGuard
+          ]
         },
         {
           path: 'create-event',
-          component: CreateEventComponent
+          component: CreateEventComponent,
+          canActivate: [
+            CanActivateGuard
+          ]
         },
         {
           path: 'upcoming-events',
-          component: UpcomingEventsComponent
+          component: UpcomingEventsComponent,
+          canActivate: [
+            CanActivateGuard
+          ]
         }
       ])
   ],
   entryComponents: [
-    UserPrompt
+    UserPrompt,
+    AddDialogComponent
   ],
-  providers: [VenuesApiService],
+  providers: [
+    VenuesApiService,
+    CanActivateGuard
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
