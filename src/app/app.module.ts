@@ -81,6 +81,10 @@ import { MyVenuesComponent } from './my-venues/my-venues.component';
           ]
         },
         {
+          path: 'home',
+          component: AppComponent
+        },
+        {
           path: 'venues',
           component: SearchComponent
         },
@@ -119,6 +123,10 @@ import { MyVenuesComponent } from './my-venues/my-venues.component';
           canActivate: [
             CanActivateGuard
           ]
+        },
+        {
+          path: '**',
+          component: SearchComponent
         }
       ])
   ],
