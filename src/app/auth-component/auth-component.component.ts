@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-auth-component',
@@ -10,9 +11,10 @@ import * as firebase from 'firebase/app';
 })
 export class AuthComponent implements OnInit {
 
-  user: Observable<firebase.User>;
+  user: Observable<firebase.User>;//this is an observable because it helps update buttons to show or hide otherwise it doesn't work as it should
 
-  constructor(public afAuth: AngularFireAuth) { 
+  constructor(public afAuth: AngularFireAuth,
+              public authService: AuthService) { 
   	this.user = afAuth.authState;
   }
 
@@ -21,25 +23,15 @@ export class AuthComponent implements OnInit {
 
   //google login
   googleLogin(){
-  	this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-  		.then(res => {
-  			console.log("Signed in user is: "+res.user.displayName);
-  			console.log("Signed in user is: "+res.user.email);
-  			console.log("Signed in user is: "+res.user.photoURL);
-  		})
+  	this.authService.googleLogin();
   }
 
   fbLogin(){
-  	this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
-  		.then(res => {
-  			console.log("Signed in user is: "+res.user.displayName);
-  			console.log("Signed in user is: "+res.user.email);
-  			console.log("Signed in user is: "+res.user.photoURL);
-  		})
+  	this.authService.fbLogin();
   }
 
   logOut(){
-  	this.afAuth.auth.signOut();
+  	this.authService.logOut();
   }
 
 }

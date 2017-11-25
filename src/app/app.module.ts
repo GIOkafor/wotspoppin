@@ -2,9 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import 'hammerjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdDialogModule, MdSnackBarModule, MdButtonModule, MdIconModule, MdSidenavModule } from '@angular/material';
+import { NgxStripeModule } from 'ngx-stripe';
+import { MdDialogModule, MdSnackBarModule, MdButtonModule, MdIconModule, MdSidenavModule, MdProgressSpinnerModule } from '@angular/material';
 import { AppComponent } from './app.component';
 
 import { AngularFireModule } from 'angularfire2';
@@ -17,6 +19,8 @@ import { FooterComponent } from './footer/footer.component';
 import { VenueDetailsComponent } from './venue-details/venue-details.component';
 
 import { VenuesApiService } from './venues-service/venues-api.service';
+import { AuthService } from './services/auth.service';
+import { PaymentService } from './services/payment.service';
 import { CanActivateGuard } from './can-activate-guard';
 import { VenueComponent } from './venue/venue.component';
 import { VenueInformationComponent } from './venue-information/venue-information.component';
@@ -30,6 +34,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CreateVenueComponent } from './create-venue/create-venue.component';
 import { AddDialogComponent } from './search/search.component';
 import { MyVenuesComponent } from './my-venues/my-venues.component';
+import { ErrorComponent } from './auth-component/error/error.component';
 
 
 @NgModule({
@@ -48,18 +53,22 @@ import { MyVenuesComponent } from './my-venues/my-venues.component';
     UserProfileComponent,
     CreateVenueComponent,
     AddDialogComponent,
-    MyVenuesComponent
+    MyVenuesComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
+    NgxStripeModule.forRoot('pk_test_kUdmFcwtzEVGdCUWLQNNzQst'),
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MdDialogModule,
     MdSnackBarModule,
     MdButtonModule,
     MdIconModule,
     MdSidenavModule,
+    MdProgressSpinnerModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
@@ -79,10 +88,6 @@ import { MyVenuesComponent } from './my-venues/my-venues.component';
           canActivate: [
             CanActivateGuard
           ]
-        },
-        {
-          path: 'home',
-          component: AppComponent
         },
         {
           path: 'venues',
@@ -132,10 +137,13 @@ import { MyVenuesComponent } from './my-venues/my-venues.component';
   ],
   entryComponents: [
     UserPrompt,
-    AddDialogComponent
+    AddDialogComponent,
+    ErrorComponent
   ],
   providers: [
     VenuesApiService,
+    AuthService,
+    PaymentService,
     CanActivateGuard
     ],
   bootstrap: [AppComponent]

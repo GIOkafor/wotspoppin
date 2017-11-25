@@ -27,6 +27,10 @@
 				<td>{{event.name}}</td>
 				<td>{{event.date}}</td>
 			</tr>
+
+			<div class="events-loading">
+				<md-spinner *ngIf="!events"></md-spinner>
+			</div>
 		</table>
 
 		<div class="show-details" *ngIf="showDetails">
@@ -41,7 +45,13 @@
 
 				<div class="buttons">
 					<button class="btn btn-primary" (click)="attendEvent();">Attend</button>
-					<button class="btn btn-default">Maybe</button>
+					<button class="btn btn-default" (click)="getGuestList(spotlightEvent)">Maybe</button>
+				</div>
+
+				<!-- Change this section to actually get user's friends ONLY-->
+				<div class="guest-list">
+					<h5>Your friends that are attending: </h5>
+					<span *ngFor="let guest of guestList | async">{{guest.$value}}</span>
 				</div>
 			</div>
 		</div>

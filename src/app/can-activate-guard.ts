@@ -21,12 +21,16 @@ export class CanActivateGuard implements CanActivate, OnInit{
 		private router: Router,
 		private snackbar: MdSnackBar
 		){
+/* Old trippy ass code 
+saying people were not authed although they were
 		firebase.auth().onAuthStateChanged(user => {
 			if(user){
 				this.user = user;
 				console.log("Current user is: "+user.displayName);
 			}
 		})
+*/	
+		this.user = afAuth.auth.currentUser;	
 	}
 
 	ngOnInit(){

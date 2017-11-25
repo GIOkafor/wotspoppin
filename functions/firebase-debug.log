@@ -1,0 +1,60 @@
+[debug] [2017-11-24T15:30:35.638Z] ----------------------------------------------------------------------
+[debug] [2017-11-24T15:30:35.644Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only functions
+[debug] [2017-11-24T15:30:35.645Z] CLI Version:   3.15.3
+[debug] [2017-11-24T15:30:35.645Z] Platform:      darwin
+[debug] [2017-11-24T15:30:35.646Z] Node Version:  v6.11.0
+[debug] [2017-11-24T15:30:35.647Z] Time:          Fri Nov 24 2017 10:30:35 GMT-0500 (EST)
+[debug] [2017-11-24T15:30:35.647Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-11-24T15:30:35.814Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-11-24T15:30:35.815Z] > authorizing via signed-in user
+[debug] [2017-11-24T15:30:35.820Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/noteapp-436f9  
+ Fri Nov 24 2017 10:30:35 GMT-0500 (EST)
+[debug] [2017-11-24T15:30:36.264Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-24T15:30:36.266Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/noteapp-436f9/tokens  
+ Fri Nov 24 2017 10:30:36 GMT-0500 (EST)
+[debug] [2017-11-24T15:30:36.776Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'noteapp-436f9'...
+[info] 
+[info] i  deploying functions
+[debug] [2017-11-24T15:30:37.329Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase serve --only functions",
+    "shell": "firebase experimental:functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~5.4.2",
+    "firebase-functions": "^0.7.1",
+    "stripe": "^5.3.0"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[info] i  runtimeconfig: ensuring necessary APIs are enabled...
+[debug] [2017-11-24T15:30:37.336Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/noteapp-436f9?view=CONSUMER_VIEW  
+ Fri Nov 24 2017 10:30:37 GMT-0500 (EST)
+[debug] [2017-11-24T15:30:37.337Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/noteapp-436f9?view=CONSUMER_VIEW  
+ Fri Nov 24 2017 10:30:37 GMT-0500 (EST)
+[debug] [2017-11-24T15:30:37.905Z] <<< HTTP RESPONSE 200
+[info] ✔  runtimeconfig: all necessary APIs are enabled
+[debug] [2017-11-24T15:30:37.910Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2017-11-24T15:30:37.912Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/noteapp-436f9  
+ Fri Nov 24 2017 10:30:37 GMT-0500 (EST)
+[debug] [2017-11-24T15:30:37.913Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/noteapp-436f9/apiKeys  
+ Fri Nov 24 2017 10:30:37 GMT-0500 (EST)
+[debug] [2017-11-24T15:30:38.196Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-24T15:30:38.268Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2017-11-24T15:36:20.429Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/noteapp-436f9/configs  
+ Fri Nov 24 2017 10:36:20 GMT-0500 (EST)
+[debug] [2017-11-24T15:36:20.633Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (1.25 KB) for uploading
+[debug] [2017-11-24T15:36:43.581Z] >>> HTTP REQUEST GET https://www.googleapis.com/storage/v1/b/staging.noteapp-436f9.appspot.com  
+ Fri Nov 24 2017 10:36:43 GMT-0500 (EST)

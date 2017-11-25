@@ -38,7 +38,7 @@ export class CreateEventComponent implements OnInit {
 	  	});
 
 	  	//db stuff
-	  	this.events = db.list('/events');
+	  	this.events = db.list('/Events');
 
       //curent user 
       this.user = firebase.auth().currentUser;
